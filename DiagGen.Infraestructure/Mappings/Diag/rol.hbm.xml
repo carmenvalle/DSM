@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DiagGen.Infraestructure"
+		                   namespace="DiagGen.Infraestructure.EN.Diag">
+		    
+		    
+			
+				<class name="RolNH" table="Rol"> 
+				  	
+						<id name="IdRlol" column="idRlol" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Nombre" type="string"> 
+						<column name="nombre"  not-null="true"/>
+					</property>
+					<property name="Descripcion" type="string"> 
+						<column name="descripcion"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+		  			
+						<bag name="Usuarios" >
+							<key>
+							
+								
+								<column name="FK_idRlol_idRol"/>
+					      	</key>
+							<one-to-many class="DiagGen.Infraestructure.EN.Diag.UsuarioNH"/>
+					    </bag>
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="RolNHReadAllHQL">from RolNH</query>
+		</hibernate-mapping>
+	

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DiagGen.Infraestructure"
+		                   namespace="DiagGen.Infraestructure.EN.Diag">
+		    
+		    
+			
+				<class name="PedidoNH" table="Pedido"> 
+				  	
+						<id name="IdPedido" column="idPedido" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Fecha" type="date"> 
+						<column name="fecha"  not-null="true"/>
+					</property>
+					<property name="Estado" > 
+						<column name="estado"  not-null="true"/>
+					</property>
+					<property name="PrecioTotal" type="float"> 
+						<column name="precioTotal"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Usuario" class="DiagGen.Infraestructure.EN.Diag.UsuarioNH" >	
+								<column name="FK_idUsuario_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="DireccionEnvio" class="DiagGen.Infraestructure.EN.Diag.DireccionEnvioNH" >	
+								<column name="FK_idDireccion_idDireccionEnvio"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="MetodoPago" class="DiagGen.Infraestructure.EN.Diag.MetodoPagoNH" >	
+								<column name="FK_idMetodo_idMetodoPago"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<bag name="PedidosItem" >
+							<key>
+							
+								
+								<column name="FK_idPedido_idPedido"/>
+					      	</key>
+							<one-to-many class="DiagGen.Infraestructure.EN.Diag.PedidoItemNH"/>
+					    </bag>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="PedidoNHReadAllHQL">from PedidoNH</query>
+		  <query name="PedidoNHdamePedidoPorItemHQL"><![CDATA[select ped FROM PedidoNH as ped join ped.pedidoItems as linea where linea.IdItem = :p_idItem]]></query>
+		</hibernate-mapping>
+	

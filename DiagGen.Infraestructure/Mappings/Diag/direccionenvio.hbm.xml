@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DiagGen.Infraestructure"
+		                   namespace="DiagGen.Infraestructure.EN.Diag">
+		    
+		    
+			
+				<class name="DireccionEnvioNH" table="DireccionEnvio"> 
+				  	
+						<id name="IdDireccion" column="idDireccion" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Calle" type="string"> 
+						<column name="calle"  not-null="true"/>
+					</property>
+					<property name="Ciudad" type="string"> 
+						<column name="ciudad"  not-null="true"/>
+					</property>
+					<property name="CodigoPostal" type="string"> 
+						<column name="codigoPostal"  not-null="true"/>
+					</property>
+					<property name="Pais" type="string"> 
+						<column name="pais"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Usuario" class="DiagGen.Infraestructure.EN.Diag.UsuarioNH" >	
+								<column name="FK_idUsuario_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<bag name="Pedidos" >
+							<key>
+							
+								
+								<column name="FK_idDireccion_idDireccionEnvio"/>
+					      	</key>
+							<one-to-many class="DiagGen.Infraestructure.EN.Diag.PedidoNH"/>
+					    </bag>
+					
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="DireccionEnvioNHReadAllHQL">from DireccionEnvioNH</query>
+		</hibernate-mapping>
+	

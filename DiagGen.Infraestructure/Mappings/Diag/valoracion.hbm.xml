@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DiagGen.Infraestructure"
+		                   namespace="DiagGen.Infraestructure.EN.Diag">
+		    
+		    
+			
+				<class name="ValoracionNH" table="Valoracion"> 
+				  	
+						<id name="IdValoracion" column="idValoracion" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Puntuacion" type="integer"> 
+						<column name="puntuacion"  not-null="true"/>
+					</property>
+					<property name="Comentario" type="string"> 
+						<column name="comentario"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Producto" class="DiagGen.Infraestructure.EN.Diag.ProductoNH" >	
+								<column name="FK_idProducto_idProducto"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="Usuario" class="DiagGen.Infraestructure.EN.Diag.UsuarioNH" >	
+								<column name="FK_idUsuario_idUsuario"/> 
+						</many-to-one>
+											 					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="ValoracionNHReadAllHQL">from ValoracionNH</query>
+		</hibernate-mapping>
+	

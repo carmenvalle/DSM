@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DiagGen.Infraestructure"
+		                   namespace="DiagGen.Infraestructure.EN.Diag">
+		    
+		    
+			
+				<class name="PedidoItemNH" table="PedidoItem"> 
+				  	
+						<id name="IdItem" column="idItem" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Cantidad" type="integer"> 
+						<column name="cantidad"  not-null="true"/>
+					</property>
+					<property name="PrecioUnitario" type="float"> 
+						<column name="precioUnitario"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Producto" class="DiagGen.Infraestructure.EN.Diag.ProductoNH" >	
+								<column name="FK_idProducto_idProducto"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="Pedido" class="DiagGen.Infraestructure.EN.Diag.PedidoNH" >	
+								<column name="FK_idPedido_idPedido"/> 
+						</many-to-one>
+											 					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="PedidoItemNHReadAllHQL">from PedidoItemNH</query>
+		</hibernate-mapping>
+	

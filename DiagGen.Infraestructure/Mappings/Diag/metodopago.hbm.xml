@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="DiagGen.Infraestructure"
+		                   namespace="DiagGen.Infraestructure.EN.Diag">
+		    
+		    
+			
+				<class name="MetodoPagoNH" table="MetodoPago"> 
+				  	
+						<id name="IdMetodo" column="idMetodo" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Tipo" type="string"> 
+						<column name="tipo"  not-null="true"/>
+					</property>
+					<property name="Numero" type="string"> 
+						<column name="numero"  not-null="true"/>
+					</property>
+					<property name="FechaExpiracion" type="date"> 
+						<column name="fechaExpiracion"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+		  			
+						<many-to-one name="Usuario" class="DiagGen.Infraestructure.EN.Diag.UsuarioNH" >	
+								<column name="FK_idUsuario_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<bag name="Pedido" >
+							<key>
+							
+								
+								<column name="FK_idMetodo_idMetodoPago"/>
+					      	</key>
+							<one-to-many class="DiagGen.Infraestructure.EN.Diag.PedidoNH"/>
+					    </bag>
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="MetodoPagoNHReadAllHQL">from MetodoPagoNH</query>
+		</hibernate-mapping>
+	
