@@ -19,5 +19,7 @@ System.Collections.Generic.IList<PedidoItemEN> ReadAllDefault (int first, int si
 
 
 int CrearPedidoItem (PedidoItemEN pedidoItem);
+
+int New_ (PedidoItemEN pedidoItem);
 }
 }

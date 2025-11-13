@@ -18,7 +18,7 @@ namespace DiagGen.ApplicationCore.CP.Diag
 {
 public partial class ProductoCP : GenericBasicCP
 {
-public DiagGen.ApplicationCore.EN.Diag.ProductoEN ValoracionMedia (string p_nombre, string p_descripcion, float p_precio, string p_imagenes, int p_stock, double p_valoracion)
+public DiagGen.ApplicationCore.EN.Diag.ProductoEN ValoracionMedia (string p_nombre, string p_descripcion, float p_precio, string p_imagenes, int p_stock, double p_valoracion, string p_categoria)
 {
         /*PROTECTED REGION ID(DiagGen.ApplicationCore.CP.Diag_Producto_valoracionMedia) ENABLED START*/
 

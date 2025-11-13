@@ -39,9 +39,9 @@ public PedidoEN VerPedido (int idPedido
         return pedidoEN;
 }
 
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> DamePedidoPorItem ()
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> DamePedidoPorItem (int ? p_idItem)
 {
-        return _IPedidoRepository.DamePedidoPorItem ();
+        return _IPedidoRepository.DamePedidoPorItem (p_idItem);
 }
 }
 }

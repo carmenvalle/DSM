@@ -75,6 +75,13 @@ private double valoracion;
 
 
 
+/**
+ *	Atributo categoria
+ */
+private string categoria;
+
+
+
 
 
 
@@ -138,6 +145,12 @@ public virtual double Valoracion {
 
 
 
+public virtual string Categoria {
+        get { return categoria; } set { categoria = value;  }
+}
+
+
+
 
 
 public ProductoEN()
@@ -149,20 +162,20 @@ public ProductoEN()
 
 
 
-public ProductoEN(int idProducto, string nombre, string descripcion, float precio, string imagenes, int stock, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.FavoritoEN> favoritos, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ValoracionEN> valoraciones, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoItemEN> pedidosItem, double valoracion
+public ProductoEN(int idProducto, string nombre, string descripcion, float precio, string imagenes, int stock, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.FavoritoEN> favoritos, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ValoracionEN> valoraciones, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoItemEN> pedidosItem, double valoracion, string categoria
                   )
 {
-        this.init (IdProducto, nombre, descripcion, precio, imagenes, stock, favoritos, valoraciones, pedidosItem, valoracion);
+        this.init (IdProducto, nombre, descripcion, precio, imagenes, stock, favoritos, valoraciones, pedidosItem, valoracion, categoria);
 }
 
 
 public ProductoEN(ProductoEN producto)
 {
-        this.init (producto.IdProducto, producto.Nombre, producto.Descripcion, producto.Precio, producto.Imagenes, producto.Stock, producto.Favoritos, producto.Valoraciones, producto.PedidosItem, producto.Valoracion);
+        this.init (producto.IdProducto, producto.Nombre, producto.Descripcion, producto.Precio, producto.Imagenes, producto.Stock, producto.Favoritos, producto.Valoraciones, producto.PedidosItem, producto.Valoracion, producto.Categoria);
 }
 
 private void init (int idProducto
-                   , string nombre, string descripcion, float precio, string imagenes, int stock, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.FavoritoEN> favoritos, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ValoracionEN> valoraciones, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoItemEN> pedidosItem, double valoracion)
+                   , string nombre, string descripcion, float precio, string imagenes, int stock, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.FavoritoEN> favoritos, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ValoracionEN> valoraciones, System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoItemEN> pedidosItem, double valoracion, string categoria)
 {
         this.IdProducto = idProducto;
 
@@ -184,6 +197,8 @@ private void init (int idProducto
         this.PedidosItem = pedidosItem;
 
         this.Valoracion = valoracion;
+
+        this.Categoria = categoria;
 }
 
 public override bool Equals (object obj)

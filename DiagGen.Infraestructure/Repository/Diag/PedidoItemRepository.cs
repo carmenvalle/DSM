@@ -166,5 +166,49 @@ public int CrearPedidoItem (PedidoItemEN pedidoItem)
 
         return pedidoItemNH.IdItem;
 }
+
+public int New_ (PedidoItemEN pedidoItem)
+{
+        PedidoItemNH pedidoItemNH = new PedidoItemNH (pedidoItem);
+
+        try
+        {
+                SessionInitializeTransaction ();
+                if (pedidoItem.Producto != null) {
+                        // Argumento OID y no colección.
+                        pedidoItemNH
+                        .Producto = (DiagGen.ApplicationCore.EN.Diag.ProductoEN)session.Load (typeof(DiagGen.ApplicationCore.EN.Diag.ProductoEN), pedidoItem.Producto.IdProducto);
+
+                        pedidoItemNH.Producto.PedidosItem
+                        .Add (pedidoItemNH);
+                }
+                if (pedidoItem.Pedido != null) {
+                        // Argumento OID y no colección.
+                        pedidoItemNH
+                        .Pedido = (DiagGen.ApplicationCore.EN.Diag.PedidoEN)session.Load (typeof(DiagGen.ApplicationCore.EN.Diag.PedidoEN), pedidoItem.Pedido.IdPedido);
+
+                        pedidoItemNH.Pedido.PedidosItem
+                        .Add (pedidoItemNH);
+                }
+
+                session.Save (pedidoItemNH);
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is DiagGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new DiagGen.ApplicationCore.Exceptions.DataLayerException ("Error in PedidoItemRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return pedidoItemNH.IdItem;
+}
 }
 }

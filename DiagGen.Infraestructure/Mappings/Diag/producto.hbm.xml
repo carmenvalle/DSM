@@ -30,6 +30,9 @@
 					<property name="Valoracion" type="double"> 
 						<column name="valoracion"  not-null="true"/>
 					</property>
+					<property name="Categoria" type="string"> 
+						<column name="categoria"  not-null="true"/>
+					</property>
 			
 			
 			
@@ -71,6 +74,8 @@
 					    </bag>
 					
 			
+			
+					
 					
 					
 					
@@ -86,9 +91,9 @@
 		  
 		  <query name="ProductoNHReadAllHQL">from ProductoNH</query>
 		  <query name="ProductoNHeditarHQL"><![CDATA[FROM ProductoNH]]></query>
-		  <query name="ProductoNHbuscarPorPalabraHQL"><![CDATA[select prod FROM ProductoNH AS p WHERE p.Nombre LIKE :Nombre OR p.Descripcion LIKE :Descripcion]]></query>
+		  <query name="ProductoNHbuscarPorPalabraHQL"><![CDATA[select p FROM ProductoNH AS p WHERE p.Nombre LIKE '%'+:nombre+'%' OR p.Descripcion LIKE '%'+:descripcion+'%']]></query>
 		  <query name="ProductoNHcategoriaHQL"><![CDATA[SELECT prod FROM ProductoNH prod WHERE prod.Categoria = :categoria]]></query>
-		  <query name="ProductoNHporPrecioHQL"><![CDATA[select prod FROM ProductoNH as prod where prod.precio between :min and :max]]></query>
-		  <query name="ProductoNHvalorarPorCategoriaHQL"><![CDATA[select prod FROM ProductoNH WHERE prod.Categoria.Nombre = :categoria ORDER BY prod.Valoracion DESC]]></query>
+		  <query name="ProductoNHporPrecioHQL"><![CDATA[select prod FROM ProductoNH as prod where prod.Precio =:precio]]></query>
+		  <query name="ProductoNHvalorarPorCategoriaHQL"><![CDATA[select prod FROM ProductoNH prod WHERE prod.Categoria = :categoria ORDER BY prod.Valoracion DESC]]></query>
 		</hibernate-mapping>
 	

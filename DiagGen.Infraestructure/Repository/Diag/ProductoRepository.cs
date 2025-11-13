@@ -117,6 +117,9 @@ public void ModifyDefault (ProductoEN producto)
 
                 productoNH.Valoracion = producto.Valoracion;
 
+
+                productoNH.Categoria = producto.Categoria;
+
                 session.Update (productoNH);
                 SessionCommit ();
         }
@@ -218,16 +221,17 @@ public void Eliminar (int idProducto
         }
 }
 
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> BuscarPorPalabra (string p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> BuscarPorPalabra (string nombre, string descripcion)
 {
         System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> result;
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM ProductoNH self where select prod FROM ProductoNH AS p WHERE p.Nombre LIKE :Nombre OR p.Descripcion LIKE :Descripcion";
+                //String sql = @"FROM ProductoNH self where select p FROM ProductoNH AS p WHERE p.Nombre LIKE '%'+:nombre+'%' OR p.Descripcion LIKE '%'+:descripcion+'%'";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("ProductoNHbuscarPorPalabraHQL");
-                query.SetParameter ("p_idProducto", p_idProducto);
+                query.SetParameter ("nombre", nombre);
+                query.SetParameter ("descripcion", descripcion);
 
                 result = query.List<DiagGen.ApplicationCore.EN.Diag.ProductoEN>();
                 SessionCommit ();
@@ -248,7 +252,7 @@ public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.Producto
 
         return result;
 }
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> Categoria (int ? p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> Categoria (string categoria)
 {
         System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> result;
         try
@@ -257,7 +261,7 @@ public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.Producto
                 //String sql = @"FROM ProductoNH self where SELECT prod FROM ProductoNH prod WHERE prod.Categoria = :categoria";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("ProductoNHcategoriaHQL");
-                query.SetParameter ("p_idProducto", p_idProducto);
+                query.SetParameter ("categoria", categoria);
 
                 result = query.List<DiagGen.ApplicationCore.EN.Diag.ProductoEN>();
                 SessionCommit ();
@@ -278,16 +282,16 @@ public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.Producto
 
         return result;
 }
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> PorPrecio (int ? p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> PorPrecio (float ? precio)
 {
         System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> result;
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM ProductoNH self where select prod FROM ProductoNH as prod where prod.precio between :min and :max";
+                //String sql = @"FROM ProductoNH self where select prod FROM ProductoNH as prod where prod.Precio =:precio";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("ProductoNHporPrecioHQL");
-                query.SetParameter ("p_idProducto", p_idProducto);
+                query.SetParameter ("precio", precio);
 
                 result = query.List<DiagGen.ApplicationCore.EN.Diag.ProductoEN>();
                 SessionCommit ();
@@ -336,16 +340,16 @@ public int ValoracionMedia (ProductoEN producto)
         return productoNH.IdProducto;
 }
 
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> ValorarPorCategoria (int ? p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> ValorarPorCategoria (string categoria)
 {
         System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> result;
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM ProductoNH self where select prod FROM ProductoNH WHERE prod.Categoria.Nombre = :categoria ORDER BY prod.Valoracion DESC";
+                //String sql = @"FROM ProductoNH self where select prod FROM ProductoNH prod WHERE prod.Categoria = :categoria ORDER BY prod.Valoracion DESC";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("ProductoNHvalorarPorCategoriaHQL");
-                query.SetParameter ("p_idProducto", p_idProducto);
+                query.SetParameter ("categoria", categoria);
 
                 result = query.List<DiagGen.ApplicationCore.EN.Diag.ProductoEN>();
                 SessionCommit ();

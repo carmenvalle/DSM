@@ -30,7 +30,7 @@ public IProductoRepository get_IProductoRepository ()
         return this._IProductoRepository;
 }
 
-public int Publicar (string p_nombre, string p_descripcion, float p_precio, string p_imagenes, int p_stock, double p_valoracion)
+public int Publicar (string p_nombre, string p_descripcion, float p_precio, string p_imagenes, int p_stock, double p_valoracion, string p_categoria)
 {
         ProductoEN productoEN = null;
         int oid;
@@ -49,6 +49,8 @@ public int Publicar (string p_nombre, string p_descripcion, float p_precio, stri
 
         productoEN.Valoracion = p_valoracion;
 
+        productoEN.Categoria = p_categoria;
+
 
 
         oid = _IProductoRepository.Publicar (productoEN);
@@ -65,21 +67,21 @@ public void Eliminar (int idProducto
         _IProductoRepository.Eliminar (idProducto);
 }
 
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> BuscarPorPalabra (string p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> BuscarPorPalabra (string nombre, string descripcion)
 {
-        return _IProductoRepository.BuscarPorPalabra (p_idProducto);
+        return _IProductoRepository.BuscarPorPalabra (nombre, descripcion);
 }
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> Categoria (int ? p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> Categoria (string categoria)
 {
-        return _IProductoRepository.Categoria (p_idProducto);
+        return _IProductoRepository.Categoria (categoria);
 }
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> PorPrecio (int ? p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> PorPrecio (float ? precio)
 {
-        return _IProductoRepository.PorPrecio (p_idProducto);
+        return _IProductoRepository.PorPrecio (precio);
 }
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> ValorarPorCategoria (int ? p_idProducto)
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> ValorarPorCategoria (string categoria)
 {
-        return _IProductoRepository.ValorarPorCategoria (p_idProducto);
+        return _IProductoRepository.ValorarPorCategoria (categoria);
 }
 }
 }

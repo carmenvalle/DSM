@@ -67,6 +67,6 @@
 		 </class>	
 		  
 		  <query name="PedidoNHReadAllHQL">from PedidoNH</query>
-		  <query name="PedidoNHdamePedidoPorItemHQL"><![CDATA[select ped FROM PedidoNH as ped join ped.pedidoItems as linea where linea.IdItem = :p_idItem]]></query>
+		  <query name="PedidoNHdamePedidoPorItemHQL"><![CDATA[select ped FROM PedidoNH as ped join ped.PedidosItem as linea where linea.IdItem = :p_idItem]]></query>
 		</hibernate-mapping>
 	

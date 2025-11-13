@@ -26,6 +26,6 @@ PedidoEN VerPedido (int idPedido
 
 int CancelarPedido (PedidoEN pedido);
 
-System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> DamePedidoPorItem ();
+System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> DamePedidoPorItem (int ? p_idItem);
 }
 }

@@ -258,15 +258,16 @@ public int CancelarPedido (PedidoEN pedido)
         return pedidoNH.IdPedido;
 }
 
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> DamePedidoPorItem ()
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> DamePedidoPorItem (int ? p_idItem)
 {
         System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.PedidoEN> result;
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM PedidoNH self where select ped FROM PedidoNH as ped join ped.pedidoItems as linea where linea.IdItem = :p_idItem";
+                //String sql = @"FROM PedidoNH self where select ped FROM PedidoNH as ped join ped.PedidosItem as linea where linea.IdItem = :p_idItem";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("PedidoNHdamePedidoPorItemHQL");
+                query.SetParameter ("p_idItem", p_idItem);
 
                 result = query.List<DiagGen.ApplicationCore.EN.Diag.PedidoEN>();
                 SessionCommit ();

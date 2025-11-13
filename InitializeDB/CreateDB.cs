@@ -116,9 +116,9 @@ public static void InitializeData ()
 
                 Console.WriteLine ("Se ha creado los usuarios:", usuComprador, usuAdmin);
 
-                int idProd1 = productocen.Publicar ("Ordenador", "Ordenador de segunda mano", 15.99f, "ordenador.jpg", 100, 5.0);
-                int idProd2 = productocen.Publicar ("Rat�n", "Rat�n de segunda mano", 29.99f, "raton.jpg", 50, 3.0);
-                int idProd3 = productocen.Publicar ("Cable", "Cable sin usar", 59.99f, "cable.jpg", 25, 5.0);
+                int idProd1 = productocen.Publicar ("Ordenador", "Ordenador de segunda mano", 15.99f, "ordenador.jpg", 100, 5.0, "PC");
+                int idProd2 = productocen.Publicar ("Rat�n", "Rat�n de segunda mano", 29.99f, "raton.jpg", 50, 3.0, "Ratón");
+                int idProd3 = productocen.Publicar ("Cable", "Cable sin usar", 59.99f, "cable.jpg", 25, 5.0, "Cable");
 
                 Console.WriteLine ("productos:" + idProd1 + idProd2 + idProd3);
 
@@ -132,27 +132,28 @@ public static void InitializeData ()
 
                 Console.WriteLine ("Metodo de pago:" + idMetodoPago1 + idMetodoPago2);
 
-                pedidocen.RealizarPedido (new DateTime (2025, 11, 12), 50, usuComprador, idDir1, idMetodoPago1);
+                var idPed1 = pedidocen.RealizarPedido (new DateTime (2025, 11, 12), 50, usuComprador, idDir1, idMetodoPago1);
 
-                favoritocen.MarcarFavorito (usuComprador, idProd3);
-                favoritocen.MarcarFavorito (usuAdmin, idProd1);
+                int fav1 = favoritocen.MarcarFavorito (usuComprador, idProd3);
+                int fav2 = favoritocen.MarcarFavorito (usuAdmin, idProd1);
 
                 Console.WriteLine ("productos en favoritos:" + favoritocen);
 
-                IList<ProductoEN> productosPorPalabra = productocen.BuscarPorPalabra ("Ordenador");
+                int idPedItem1 = pedidoitemcen.New_ (1, 50.21f, idProd3, idPed1);
+
+                IList<ProductoEN> productosPorPalabra = productocen.BuscarPorPalabra ("Ordenador", "Ordenador de segunda mano");
 
                 Console.WriteLine ("Consultar por palabra: 'Ordenador'");
 
                 foreach (ProductoEN prod in productosPorPalabra) {
                         Console.WriteLine ("ID: " + prod.IdProducto +
                                 ", Nombre: " + prod.Nombre +
-                                ", Descripción: " + prod.Descripcion +
-                                ", Precio: " + prod.Precio);
+                                ", Descripción: " + prod.Descripcion);
                 }
 
-                IList<ProductoEN> productosPorCategoria = productocen.Categoria (V);
+                IList<ProductoEN> productosPorCategoria = productocen.Categoria ("PC");
 
-                Console.WriteLine ("Consultar por categoria:" + V);
+                Console.WriteLine ("Consultar por categoria:");
 
                 foreach (ProductoEN prod in productosPorCategoria) {
                         Console.WriteLine ("ID: " + prod.IdProducto +
@@ -161,7 +162,7 @@ public static void InitializeData ()
                                 ", Precio: " + prod.Precio);
                 }
 
-                IList<ProductoEN> valorarPorCategoria = productocen.ValorarPorCategoria (V);
+                IList<ProductoEN> valorarPorCategoria = productocen.ValorarPorCategoria ("PC");
 
                 Console.WriteLine ("Valorar por categoria: ''");
 
@@ -172,7 +173,7 @@ public static void InitializeData ()
                                 ", Precio: " + prod.Precio);
                 }
 
-                IList<ProductoEN> productosPorPrecio = productocen.PorPrecio (20.0f, 60.0f);
+                IList<ProductoEN> productosPorPrecio = productocen.PorPrecio (29.99f);
 
                 Console.WriteLine ("Consultar productos con precio entre 20 y 60:");
 
@@ -185,13 +186,12 @@ public static void InitializeData ()
 
                 Console.WriteLine ("\nConsultar pedido por item:");
 
-                IList<PedidoEN> pedidosPorItem = pedidocen.DamePedidoPorItem (1);
+                IList<PedidoEN> pedidosPorItem = pedidocen.DamePedidoPorItem (idPedItem1);
 
                 foreach (PedidoEN pedido in pedidosPorItem) {
                         Console.WriteLine ("Pedido encontrado: ID = " + pedido.IdPedido +
                                 ", Fecha: " + pedido.Fecha +
-                                ", Total: " + pedido.PrecioTotal +
-                                ", Usuario: " + pedido.Usuario.Nombre);
+                                ", Total: " + pedido.PrecioTotal );
                 }
 
 
