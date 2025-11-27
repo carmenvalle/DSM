@@ -1,4 +1,3 @@
-
 using System;
 using System.Text;
 using DiagGen.ApplicationCore.CEN.Diag;
@@ -68,14 +67,15 @@ public System.Collections.Generic.IList<ProductoEN> ReadAllDefault (int first, i
         System.Collections.Generic.IList<ProductoEN> result = null;
         try
         {
-                using (ITransaction tx = session.BeginTransaction ())
-                {
-                        if (size > 0)
-                                result = session.CreateCriteria (typeof(ProductoNH)).
-                                         SetFirstResult (first).SetMaxResults (size).List<ProductoEN>();
-                        else
-                                result = session.CreateCriteria (typeof(ProductoNH)).List<ProductoEN>();
-                }
+                SessionInitializeTransaction(); // <-- asegurar que session exista y tx esté creado
+                if (size > 0)
+                        result = session.CreateCriteria (typeof(ProductoNH)).
+                                 SetFirstResult (first).SetMaxResults (size).
+                                 List<ProductoEN>();
+                else
+                        result = session.CreateCriteria (typeof(ProductoNH)).List<ProductoEN>();
+
+                SessionCommit ();
         }
 
         catch (Exception ex) {
@@ -83,6 +83,11 @@ public System.Collections.Generic.IList<ProductoEN> ReadAllDefault (int first, i
                 if (ex is DiagGen.ApplicationCore.Exceptions.ModelException)
                         throw;
                 else throw new DiagGen.ApplicationCore.Exceptions.DataLayerException ("Error in ProductoRepository.", ex);
+        }
+                
+        finally
+        {
+                SessionClose ();
         }
 
         return result;
