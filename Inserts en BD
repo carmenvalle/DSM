@@ -1,0 +1,13 @@
+-- Valoraciones del usuario comprador (carmen)
+INSERT INTO Valoracion (idValoracion, Puntuacion, Comentario, FK_idProducto_idProducto, FK_idUsuario_idUsuario) VALUES
+(1,5, 'Excelente ordenador de segunda mano', 98304, 65536),
+(4,3, 'El ratón funciona correctamente', 98305, 65536),
+(5,5, 'Cable sin usar, muy útil', 98306, 65536),
+(8,3, 'Televisión plana en buen estado', 327680, 65536);
+
+-- Valoraciones del usuario admin (Juan)
+INSERT INTO Valoracion (idValoracion, Puntuacion, Comentario, FK_idProducto_idProducto, FK_idUsuario_idUsuario) VALUES
+(2,4, 'Ordenador revisado por admin', 98304, 65537),
+(3,2, 'Ratón un poco gastado', 98305, 65537),
+(6,5, 'Cable perfecto', 98306, 65537),
+(7,3, 'Televisión funciona correctamente', 327680, 65537);
