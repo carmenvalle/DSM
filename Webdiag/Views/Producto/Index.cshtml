@@ -1,20 +1,20 @@
-﻿@model IEnumerable<DiagGen.ApplicationCore.EN.Diag.ProductoEN>
+﻿@model IEnumerable<Webdiag.Models.ProductoViewModel>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>View</h1>
+<h1>Productos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdProducto)
+                @Html.DisplayNameFor(model => model.idProducto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
@@ -44,7 +44,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IdProducto)
+                @Html.DisplayFor(modelItem => item.idProducto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
@@ -68,9 +68,9 @@
                 @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "Edit", new { id=item.idProducto }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.idProducto }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.idProducto })
             </td>
         </tr>
 }

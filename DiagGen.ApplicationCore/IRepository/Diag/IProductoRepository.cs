@@ -9,8 +9,7 @@ public partial interface IProductoRepository
 {
 void setSessionCP (GenericSessionCP session);
 
-ProductoEN ReadOIDDefault (int idProducto
-                           );
+ProductoEN ReadOIDDefault (int idProducto);
 
 void ModifyDefault (ProductoEN producto);
 

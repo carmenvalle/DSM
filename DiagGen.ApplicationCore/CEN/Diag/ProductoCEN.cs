@@ -30,6 +30,7 @@ public IProductoRepository get_IProductoRepository ()
         return this._IProductoRepository;
 }
 
+
 public int Publicar (string p_nombre, string p_descripcion, float p_precio, string p_imagenes, int p_stock, double p_valoracion, string p_categoria)
 {
         ProductoEN productoEN = null;
@@ -56,12 +57,36 @@ public int Publicar (string p_nombre, string p_descripcion, float p_precio, stri
         oid = _IProductoRepository.Publicar (productoEN);
         return oid;
 }
-
-public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> Editar ()
+public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.ProductoEN> readAll()
 {
-        return _IProductoRepository.Editar ();
+    return _IProductoRepository.ReadAllDefault(0, -1);
 }
-public void Eliminar (int idProducto
+public ProductoEN readId(int idPr)
+{
+    return _IProductoRepository.ReadOIDDefault(idPr);
+}
+
+        public void EditarProducto(int idProducto, string nombre, string descripcion, float precio, string imagenes, int stock, double valoracion, string categoria)
+        {
+            // 1. Leer el producto existente
+            ProductoEN pr = _IProductoRepository.ReadOIDDefault(idProducto);
+            if (pr == null)
+                throw new Exception("El producto no existe");
+
+            // 2. Modificar sus propiedades
+            pr.Nombre = nombre;
+            pr.Descripcion = descripcion;
+            pr.Precio = precio;
+            pr.Imagenes = imagenes;
+            pr.Stock = stock;
+            pr.Valoracion = valoracion;
+            pr.Categoria = categoria;
+
+            // 3. Guardar cambios
+            _IProductoRepository.ModifyDefault(pr);
+        }
+
+        public void Eliminar (int idProducto
                       )
 {
         _IProductoRepository.Eliminar (idProducto);
