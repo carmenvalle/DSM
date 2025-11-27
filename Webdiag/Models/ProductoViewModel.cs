@@ -44,7 +44,6 @@ namespace Webdiag.Models
         [Display(Prompt = "Introduce la valoración del producto", Description = "Valoración del producto", Name = "Valoración")]
         [Required(ErrorMessage = "Debe indicar una valoración para el producto")]
         [Range(0.0, 5.0, ErrorMessage = "La valoración debe estar entre 0 y 5")]
-        [DataType(DataType.Currency, ErrorMessage = "La valoración debe ser un valor numérico")]
         public double Valoracion { get; set; }
 
 

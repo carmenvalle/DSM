@@ -29,6 +29,7 @@ private string descripcion;
 /**
  *	Atributo precio
  */
+
 private float precio;
 
 
