@@ -29,8 +29,28 @@ public IValoracionRepository get_IValoracionRepository ()
 {
         return this._IValoracionRepository;
 }
+public ValoracionEN ReadId(int idValoracion)
+{
+    return _IValoracionRepository.ReadOIDDefault(idValoracion);
+}
 
-public int Guardar (int p_puntuacion, string p_comentario, int p_producto, int p_usuario)
+public IList<ValoracionEN> ReadAll()
+{
+    return _IValoracionRepository.ReadAllDefault(0, -1);
+}
+public void Editar(int idValoracion, int puntuacion, string comentario, int idProducto, int idUsuario)
+{
+    ValoracionEN val = _IValoracionRepository.ReadOIDDefault(idValoracion);
+
+    val.Puntuacion = puntuacion;
+    val.Comentario = comentario;
+    val.Producto = new ProductoEN { IdProducto = idProducto };
+    val.Usuario = new UsuarioEN { IdUsuario = idUsuario };
+
+    _IValoracionRepository.ModifyDefault(val);
+}
+
+        public int Guardar (int p_puntuacion, string p_comentario, int p_producto, int p_usuario)
 {
         ValoracionEN valoracionEN = null;
         int oid;
@@ -62,8 +82,13 @@ public int Guardar (int p_puntuacion, string p_comentario, int p_producto, int p
         oid = _IValoracionRepository.Guardar (valoracionEN);
         return oid;
 }
+public IList<ValoracionEN> BuscarPorProducto(int idProducto)
+{
+    return _IValoracionRepository.BuscarPorProducto(idProducto);
+}
 
-public void Borrar (int idValoracion
+
+        public void Borrar (int idValoracion
                     )
 {
         _IValoracionRepository.Borrar (idValoracion);

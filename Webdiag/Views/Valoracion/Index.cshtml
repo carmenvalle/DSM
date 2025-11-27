@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Webdiag.Models.ValoracionViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Valoraciones</h1>
+
+<p>
+    <a asp-action="Create">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Puntuacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Puntuacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.IdValoracion }) |
+                    @Html.ActionLink("Delete", "Delete", new { d = item.IdValoracion })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

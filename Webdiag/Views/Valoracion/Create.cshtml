@@ -1,0 +1,44 @@
+﻿@model Webdiag.Models.ValoracionViewModel
+
+@{
+    ViewData["Title"] = "Crear Valoración";
+}
+
+<h1>Crear Valoración</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="ProductoId"></label>
+        <select asp-for="ProductoId" class="form-control" asp-items="@(new SelectList(ViewBag.Productos, "IdProducto", "Nombre"))">
+            <option value="">-- Seleccione un producto --</option>
+        </select>
+        <span asp-validation-for="ProductoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UsuarioId"></label>
+        <input asp-for="UsuarioId" class="form-control" type="number" />
+        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Puntuacion"></label>
+        <input asp-for="Puntuacion" class="form-control" type="number" min="1" max="5" />
+        <span asp-validation-for="Puntuacion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Comentario"></label>
+        <input asp-for="Comentario" class="form-control" />
+        <span asp-validation-for="Comentario" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

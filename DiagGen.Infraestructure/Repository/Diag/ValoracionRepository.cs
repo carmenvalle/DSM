@@ -1,16 +1,18 @@
 
-using System;
-using System.Text;
 using DiagGen.ApplicationCore.CEN.Diag;
+using DiagGen.ApplicationCore.CP.Diag;
+using DiagGen.ApplicationCore.EN.Diag;
+using DiagGen.ApplicationCore.Exceptions;
+using DiagGen.ApplicationCore.IRepository.Diag;
+using DiagGen.Infraestructure.EN.Diag;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Criterion;
 using NHibernate.Exceptions;
-using DiagGen.ApplicationCore.EN.Diag;
-using DiagGen.ApplicationCore.Exceptions;
-using DiagGen.ApplicationCore.IRepository.Diag;
-using DiagGen.ApplicationCore.CP.Diag;
-using DiagGen.Infraestructure.EN.Diag;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 
 /*
@@ -20,7 +22,7 @@ using DiagGen.Infraestructure.EN.Diag;
 
 namespace DiagGen.Infraestructure.Repository.Diag
 {
-public partial class ValoracionRepository : BasicRepository, IValoracionRepository
+public partial class ValoracionRepository : BasicRepository ,IValoracionRepository
 {
 public ValoracionRepository() : base ()
 {
@@ -191,5 +193,14 @@ public void Borrar (int idValoracion
                 SessionClose ();
         }
 }
-}
+
+        public IList<ValoracionEN> BuscarPorProducto(int idProducto)
+        {
+            IList<ValoracionEN> result = session.Query<ValoracionEN>()
+                                                .Where(v => v.Producto.IdProducto == idProducto)
+                                                .ToList();
+            return result;
+        }
+
+    }
 }
