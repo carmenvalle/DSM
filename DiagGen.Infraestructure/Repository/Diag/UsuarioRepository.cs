@@ -198,13 +198,13 @@ public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.UsuarioE
 
         return result;
 }
-public void EliminarCuenta (int idUsuario
+public void EliminarCuenta (string p_nombre
                             )
 {
         try
         {
                 SessionInitializeTransaction ();
-                UsuarioNH usuarioNH = (UsuarioNH)session.Load (typeof(UsuarioNH), idUsuario);
+                UsuarioNH usuarioNH = (UsuarioNH)session.Load (typeof(UsuarioNH), p_nombre);
                 session.Delete (usuarioNH);
                 SessionCommit ();
         }
@@ -222,5 +222,29 @@ public void EliminarCuenta (int idUsuario
                 SessionClose ();
         }
 }
-}
+
+        public UsuarioEN ReadOIDDefault(string p_nombre)
+        {
+            UsuarioEN usuarioEN = null;
+            try
+            {
+                SessionInitializeTransaction();
+                usuarioEN = session.CreateCriteria(typeof(UsuarioNH))
+                    .Add(NHibernate.Criterion.Restrictions.Eq("Nombre", p_nombre))
+                    .UniqueResult<UsuarioEN>();
+                SessionCommit();
+            }
+            catch (Exception ex)
+            {
+                SessionRollBack();
+                // lanzar excepción de capa de datos apropiada o loggear
+                throw new DiagGen.ApplicationCore.Exceptions.DataLayerException("Error in UsuarioRepository.ReadOIDDefault(string).", ex);
+            }
+            finally
+            {
+                SessionClose();
+            }
+            return usuarioEN;
+        }
+    }
 }

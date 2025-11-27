@@ -9,7 +9,7 @@ public partial interface IUsuarioRepository
 {
 void setSessionCP (GenericSessionCP session);
 
-UsuarioEN ReadOIDDefault (int idUsuario
+UsuarioEN ReadOIDDefault (string p_nombre
                           );
 
 void ModifyDefault (UsuarioEN usuario);
@@ -23,7 +23,7 @@ int Registrarse (UsuarioEN usuario);
 System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.UsuarioEN> CerrarSesion ();
 
 
-void EliminarCuenta (int idUsuario
+void EliminarCuenta (string p_nombre
                      );
 }
 }

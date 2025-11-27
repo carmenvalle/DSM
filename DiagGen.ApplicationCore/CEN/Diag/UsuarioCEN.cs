@@ -64,83 +64,81 @@ public System.Collections.Generic.IList<DiagGen.ApplicationCore.EN.Diag.UsuarioE
 {
         return _IUsuarioRepository.CerrarSesion ();
 }
-public void EliminarCuenta (int idUsuario
+public void EliminarCuenta (string p_nombre
                             )
 {
-        _IUsuarioRepository.EliminarCuenta (idUsuario);
+        _IUsuarioRepository.EliminarCuenta (p_nombre);
 }
 
-public string Login (int p_Usuario_OID, string p_pass)
-{
-        string result = null;
-        UsuarioEN en = _IUsuarioRepository.ReadOIDDefault (p_Usuario_OID);
+        public string Login(string p_nombre, string p_pass)
+        {
+            string result = null;
+            UsuarioEN en = _IUsuarioRepository.ReadOIDDefault(p_nombre);
 
-        if (en != null && en.Pass.Equals (Utils.Util.GetEncondeMD5 (p_pass)))
-                result = this.GetToken (en.IdUsuario);
+            if (en != null && en.Pass.Equals(Utils.Util.GetEncondeMD5(p_pass)))
+                result = this.GetToken(en.Nombre);
 
-        return result;
-}
-
-
+            return result;
+        }
 
 
-private string Encode (int idUsuario)
-{
-        var payload = new Dictionary<string, object>(){
-                { "idUsuario", idUsuario }
+
+
+        private string Encode(string p_nombre)
+        {
+            var payload = new Dictionary<string, object>(){
+                { "Nombre", p_nombre }
         };
-        string token = Jose.JWT.Encode (payload, Utils.Util.getKey (), Jose.JwsAlgorithm.HS256);
+            string token = Jose.JWT.Encode(payload, Utils.Util.getKey(), Jose.JwsAlgorithm.HS256);
 
-        return token;
-}
+            return token;
+        }
 
-public string GetToken (int idUsuario)
-{
-        UsuarioEN en = _IUsuarioRepository.ReadOIDDefault (idUsuario);
-        string token = Encode (en.IdUsuario);
-
-        return token;
-}
-public int CheckToken (string token)
-{
-        int result = -1;
-
-        try
+        public string GetToken(string p_nombre)
         {
-                string decodedToken = Utils.Util.Decode (token);
+            UsuarioEN en = _IUsuarioRepository.ReadOIDDefault(p_nombre);
+            string token = Encode(en.Nombre);
 
+            return token;
+        }
+        public int CheckToken(string token)
+        {
+            int result = -1;
 
+            try
+            {
+                string decodedToken = Utils.Util.Decode(token);
 
-                int id = (int)ObtenerIDUSUARIO (decodedToken);
+                string nombre = ObtenerNombreUsuario(decodedToken);
 
-                UsuarioEN en = _IUsuarioRepository.ReadOIDDefault (id);
+                UsuarioEN en = _IUsuarioRepository.ReadOIDDefault(nombre);
 
-                if (en != null && ((long)en.IdUsuario).Equals (ObtenerIDUSUARIO (decodedToken))
-                    ) {
-                        result = id;
+                if (en != null && en.Nombre.Equals(nombre))
+                {
+                    result = en.IdUsuario;
                 }
-                else throw new ModelException ("El token es incorrecto");
-        } catch (Exception)
-        {
-                throw new ModelException ("El token es incorrecto");
+                else throw new ModelException("El token es incorrecto");
+            }
+            catch (Exception)
+            {
+                throw new ModelException("El token es incorrecto");
+            }
+
+            return result;
         }
 
-        return result;
-}
-
-
-public long ObtenerIDUSUARIO (string decodedToken)
-{
-        try
+        public string ObtenerNombreUsuario(string decodedToken)
         {
-                Dictionary<string, object> results = JsonConvert.DeserializeObject<Dictionary<string, object> >(decodedToken);
-                long idusuario = (long)results ["idUsuario"];
-                return idusuario;
+            try
+            {
+                Dictionary<string, object> results = JsonConvert.DeserializeObject<Dictionary<string, object>>(decodedToken);
+                string nombre = results["Nombre"].ToString();
+                return nombre;
+            }
+            catch
+            {
+                throw new Exception("El token enviado no es correcto");
+            }
         }
-        catch
-        {
-                throw new Exception ("El token enviado no es correcto");
-        }
-}
 }
 }
